@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Test</title>
+</head>
+<body style="width: 98%; margin:0;">
+    <h1 style="text-align: center;">Witaj w prostej aplikacji webowej</h1>
+    <h2 style="text-align: center;">POSTGREESQL  MONGO  REDIS</h2>
+    <div style="text-align: center;">
+        <button><a href="/test_select/">Testuj SELECT</a></button>
+        <button><a href="/test_insert/">Testuj INSERT</a></button>
+        <button><a href="/test_delete/">Testuj DELETE</a></button>
+        <button><a href="/test_update/">Testuj UPDATE</a></button>
+    </div>
+<br>
+<br>
+<h1 style="text-align: center; width: 100%;">----------------------------------------</h1>
+<br>
+<br>
+    <h1 style="text-align: center;">TESTUJEMY UPDATE</h1>
+
+    <table style="width:100%; text-align: center;margin-left: 0.5%; margin-right: 0.5%;">
+        <tr>
+            <td style="width: 33%;"><h2>POSTGREESQL</h2></td>
+            <td style="width: 33%;"><h2>MONGO</h2></td>
+            <td style="width: 33%;"><h2>REDIS</h2></td>
+        </tr>
+        <tr>
+            <td><button class="make_update_sql"><a href="/wykonaj_update_sql/">Wykonaj UPDATE</a></button></td>
+            <td><button class="make_update_mongo">Wykonaj UPDATE</a></button></td>
+            <td><button class="make_update_redis">Wykonaj UPDATE</a></button></td>
+        </tr>
+        <tr>
+            <td><p><b>{{ rows_pg }}</p></td>
+        </tr>
+     </table>
+     
+</body>
+</html>
