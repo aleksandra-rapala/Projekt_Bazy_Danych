@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from baza_sql import connect_sql, sql_select, sql_insert, sql_delete, sql_update, disconnect_sql
+from baza_mongo import connect_mongo, mongo_select, disconnect_mongo, mongo_insert, mongo_delete, mongo_update
 import os
 
 app = Flask(__name__)
@@ -25,7 +26,7 @@ def test_update():
     return render_template('update.html')
 
 
-#DLA SQL
+#DLA SELECT
 
 @app.route('/wykonaj_select_sql/')
 def wykonaj_select():
@@ -34,12 +35,37 @@ def wykonaj_select():
     disconnect_sql(cur_pg, conn_pg)
     return render_template('select.html', rows_pg=rows_pg)
 
+@app.route('/wykonaj_select_mongo/')
+def wykonaj_select_mongo():
+    db_mongo, client_mongo = connect_mongo()
+    cursor, execution_time = mongo_select(db_mongo)
+    results = list(cursor)
+    disconnect_mongo(client_mongo)
+    return render_template('select.html', rows_pg=(results, execution_time))
+
+
+
+
+#DLA INSERT
+
 @app.route('/wykonaj_insert_sql/')
 def wykonaj_insert():
     cur_pg, conn_pg = connect_sql()
     rows_pg = sql_insert(cur_pg, conn_pg)
     disconnect_sql(cur_pg, conn_pg)
     return render_template('insert.html', rows_pg=rows_pg)
+
+@app.route('/wykonaj_insert_mongo/')
+def wykonaj_insert_mongo():
+    db_mongo, client_mongo = connect_mongo()
+    rows_pg = mongo_insert(db_mongo)
+    disconnect_mongo(client_mongo)
+    return render_template('insert.html', rows_pg=rows_pg)
+
+
+
+
+#DLA DELETE
 
 @app.route('/wykonaj_delete_sql/')
 def wykonaj_delete():
@@ -48,12 +74,34 @@ def wykonaj_delete():
     disconnect_sql(cur_pg, conn_pg)
     return render_template('delete.html', rows_pg=rows_pg)
 
+
+@app.route('/wykonaj_delete_mongo/')
+def wykonaj_delete_mongo():
+    db_mongo, client_mongo = connect_mongo()
+    rows_pg = mongo_delete(db_mongo)
+    disconnect_mongo(client_mongo)
+    return render_template('delete.html', rows_pg=rows_pg)
+
+
+
+
+#DLA UPDATE
+
 @app.route('/wykonaj_update_sql/')
 def wykonaj_update():
     cur_pg, conn_pg = connect_sql()
     rows_pg = sql_update(cur_pg, conn_pg)
     disconnect_sql(cur_pg, conn_pg)
     return render_template('update.html', rows_pg=rows_pg)
+
+@app.route('/wykonaj_update_mongo/')
+def wykonaj_update_mongo():
+    db_mongo, client_mongo = connect_mongo()
+    rows_pg = mongo_update(db_mongo)
+    disconnect_mongo(client_mongo)
+    return render_template('update.html', rows_pg=rows_pg)
+
+
 
 
 
