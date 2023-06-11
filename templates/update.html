@@ -29,13 +29,18 @@
         </tr>
         <tr>
             <td><button class="make_update_sql"><a href="/wykonaj_update_sql/">Wykonaj UPDATE</a></button></td>
-            <td><button class="make_update_mongo">Wykonaj UPDATE</a></button></td>
-            <td><button class="make_update_redis">Wykonaj UPDATE</a></button></td>
+            <td><button class="make_update_mongo"><a href="/wykonaj_update_mongo/">Wykonaj UPDATE</a></button></td>
+            <td><button class="make_update_redis"><a href="/wykonaj_update_redis/">Wykonaj UPDATE</a></button></td>
         </tr>
         <tr>
             <td><p><b>{{ rows_pg }}</p></td>
         </tr>
-     </table>
-     
+    </table>
+
+    <div style="text-align: center;">
+       <h1>Wynik czasowy:</h1>
+       <td><p><b>{{ rows_pg }}</p></td>
+   </div>
+
 </body>
 </html>
