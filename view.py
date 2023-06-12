@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from baza_sql import connect_sql, sql_select, sql_insert, sql_delete, sql_update, disconnect_sql
 from baza_mongo import connect_mongo, mongo_select, disconnect_mongo, mongo_insert, mongo_delete, mongo_update
+from baza_cassandra import connect_cassandra, cassandra_select, cassandra_insert, cassandra_delete, cassandra_update, disconnect_cassandra
 import os
 
 app = Flask(__name__)
@@ -43,6 +44,12 @@ def wykonaj_select_mongo():
     disconnect_mongo(client_mongo)
     return render_template('select.html', rows_pg=(results, execution_time))
 
+@app.route('/wykonaj_select_cassandra/')
+def wykonaj_select_cassandra():
+    session = connect_cassandra()
+    rows_cassandra, execution_time = cassandra_select(session)
+    disconnect_cassandra(session)
+    return render_template('select.html', rows_pg=(rows_cassandra, execution_time))
 
 
 
@@ -62,7 +69,12 @@ def wykonaj_insert_mongo():
     disconnect_mongo(client_mongo)
     return render_template('insert.html', rows_pg=rows_pg)
 
-
+@app.route('/wykonaj_insert_cassandra/')
+def wykonaj_insert_cassandra():
+    session = connect_cassandra()
+    execution_time = cassandra_insert(session)
+    disconnect_cassandra(session)
+    return render_template('insert.html', rows_pg=execution_time)
 
 
 #DLA DELETE
@@ -82,7 +94,12 @@ def wykonaj_delete_mongo():
     disconnect_mongo(client_mongo)
     return render_template('delete.html', rows_pg=rows_pg)
 
-
+@app.route('/wykonaj_delete_cassandra/')
+def wykonaj_delete_cassandra():
+    session = connect_cassandra()
+    execution_time = cassandra_delete(session)
+    disconnect_cassandra(session)
+    return render_template('delete.html', rows_pg=execution_time)
 
 
 #DLA UPDATE
@@ -101,7 +118,12 @@ def wykonaj_update_mongo():
     disconnect_mongo(client_mongo)
     return render_template('update.html', rows_pg=rows_pg)
 
-
+@app.route('/wykonaj_update_cassandra/')
+def wykonaj_update_cassandra():
+    session = connect_cassandra()
+    execution_time = cassandra_update(session)
+    disconnect_cassandra(session)
+    return render_template('update.html', rows_pg=execution_time)
 
 
 
